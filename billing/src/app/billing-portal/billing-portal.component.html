@@ -1,5 +1,8 @@
 <div class="parent-class">
     <div class="header">
+        <div class="home">
+            <a href="home-page">Home</a>
+        </div>
     <div class="title">
         <label class="title-label">Billing Portal</label>
     </div>    
@@ -9,7 +12,7 @@
         <input type="button" (click)="print()" value="Print">
     </div>
     <div class="time-and-bill">
-       <label>Date</label><label>Time</label><label>Bill Number:</label>
+       <label>{{date}}</label><label>BillNumber:{{billNumber}}</label>
     </div>
     <div class="item-elements">
         <!-- <div> -->
@@ -36,7 +39,7 @@
         <th>Quantity</th>
         <th>Price</th>
         </tr>
-        <tr ngFor="let item of items">
+        <tr *ngFor="let item of items">
             <td>{{item.itemName}}</td>
             <td>{{item.itemQuantity}}</td>
             <td>{{item.itemPrice}}</td>
