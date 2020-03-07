@@ -1,1 +1,36 @@
-<p>billing-data works!</p>
+<div class="parent-class">
+    <div class="header">
+        <div class="home">
+            <a href="home-page">Home</a>
+        </div>
+    <div class="title">
+        <label class="title-label">Billing Information</label>
+    </div>    
+    </div>
+    <div class="search-button">
+        <input type="button" (click)="save()" value="Search">
+    </div>
+    <div class="time-and-bill">
+       <label>{{date}}</label>
+    </div>
+    <div class="item-elements">
+        <label for="item-code">Bill Number</label>
+        <input type="number" id="bill-number" >
+        <label for="date">Date</label>
+        <input type="date"  id="date">
+    </div>
+    <div class="collected-items">
+    <table class="item-table">
+        <tr>
+        <th>Bill Number</th>
+        <th>Date</th>
+        <th>Amount</th>
+        </tr>
+        <tr *ngFor="let item of items">
+            <td>{{item.billNumber}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.amount}}</td>
+        </tr>
+    </table>
+    </div>
+    </div>
