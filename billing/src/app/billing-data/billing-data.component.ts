@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BillingDataComponent implements OnInit {
 
+  time:string;
+date:string;
+billNumber:number;
   constructor() { }
 
   ngOnInit() {
+    this.myTimer();
+  }
+
+  myTimer() {
+    var d = new Date();
+    this.time = d.toLocaleTimeString();
+    this.date=d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+    this.billNumber=1;
   }
 
 }
