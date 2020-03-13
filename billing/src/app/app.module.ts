@@ -7,6 +7,12 @@ import { BillingPortalComponent } from './billing-portal/billing-portal.componen
 import { AddItemsComponent } from './add-items/add-items.component';
 import { HomePgeComponent } from './home-pge/home-pge.component';
 import { BillingDataComponent } from './billing-data/billing-data.component';
+import { BillingDayInfoComponent } from './billing-day-info/billing-day-info.component';
+import { BillingPortalService } from './billing-portal/service/billing-portal.service';
+import { BillingDataService } from './billing-data/service/billing-data.service';
+import { AddItemsService } from './add-items/service/add-items.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { BaseUrl } from './BaseUrl';
 
 @NgModule({
   declarations: [
@@ -14,13 +20,20 @@ import { BillingDataComponent } from './billing-data/billing-data.component';
     BillingPortalComponent,
     AddItemsComponent,
     HomePgeComponent,
-    BillingDataComponent
+    BillingDataComponent,
+    BillingDayInfoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    BillingPortalService,
+    BillingDataService,
+    AddItemsService,
+    BaseUrl
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
