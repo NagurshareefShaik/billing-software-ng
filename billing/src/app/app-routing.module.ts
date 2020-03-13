@@ -4,6 +4,7 @@ import { HomePgeComponent } from './home-pge/home-pge.component';
 import { BillingPortalComponent } from './billing-portal/billing-portal.component';
 import { BillingDataComponent } from './billing-data/billing-data.component';
 import { AddItemsComponent } from './add-items/add-items.component';
+import { BillingDayInfoComponent } from './billing-day-info/billing-day-info.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   {path:'home-page',component:HomePgeComponent},
   {path:'billing-portal',component:BillingPortalComponent},
   {path:'billing-data',component:BillingDataComponent},
-  {path:'add-items',component:AddItemsComponent}
+  {path:'add-items',component:AddItemsComponent},
+  {path:'day-billing-info',component:BillingDayInfoComponent}
 ];
 
 @NgModule({
