@@ -11,9 +11,6 @@ export class AddItemsComponent implements OnInit {
   itemCodeValue:number;
   itemNameValue:string;
   itemPriceValue:number;
-  @ViewChild('itemCode',{static:false})  itemCode:ElementRef<any>;
-  @ViewChild('itemName',{static:false})  itemName:ElementRef<any>;
-  @ViewChild('itemPrice',{static:false})  itemPrice:ElementRef<any>;
   constructor(
     private addItemService:AddItemsService
     ) {}
@@ -26,17 +23,6 @@ export class AddItemsComponent implements OnInit {
   }
 
   saveItem(){
-this.itemCodeValue=this.itemCode.nativeElement.value;
-this.itemNameValue=this.itemName.nativeElement.value;
-this.itemPriceValue=this.itemPrice.nativeElement.value;
-// this.items.itemCode=this.itemCodeValue;
-// this.items.itemName=this.itemNameValue;
-// this.items.itemPrice=this.itemPriceValue;
-alert(
-  this.itemCodeValue+' '+
-  this.itemNameValue+' '+
-  this.itemPriceValue
-);
   }
 
 }

@@ -1,3 +1,3 @@
 export class BaseUrl{
-    base_url:string="/billing-software";
+    base_url:string="/billing-software/billing-software";
 }
