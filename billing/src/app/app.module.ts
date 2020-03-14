@@ -13,6 +13,7 @@ import { BillingDataService } from './billing-data/service/billing-data.service'
 import { AddItemsService } from './add-items/service/add-items.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BaseUrl } from './BaseUrl';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BaseUrl } from './BaseUrl';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     BillingPortalService,

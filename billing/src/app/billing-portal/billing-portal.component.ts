@@ -7,10 +7,13 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 
 export class BillingPortalComponent implements OnInit {
-  @ViewChild('itemCode',{static:false}) itemCode:ElementRef<any>;
 time:string;
 date:string;
 billNumber:number;
+itemCodeValue:number;
+itemNameValue:string;
+itemPriceValue:number;
+itemQuanity:number;
 
   constructor() {
     setInterval(()=>{this.myTimer();},1000);
@@ -21,8 +24,7 @@ billNumber:number;
   }
 
   save(){
-    let code=this.itemCode.nativeElement;
-    alert(code.value);
+    
   }
   print(){
 window.print();

@@ -15,22 +15,14 @@
        <label>{{date}}</label> <label>{{time}}</label><label>BillNumber:{{billNumber}}</label>
     </div>
     <div class="item-elements">
-        <!-- <div> -->
         <label for="item-code">Item Code</label>
-        <input type="number" id="item-code" #itemCode>
-    <!-- </div> -->
-        <!-- <div> -->
+        <input type="number" id="item-code" [(ngModel)]="itemCodeValue">
         <label for="item-name">Item Name</label>
-        <input type="text" disabled id="item-name">
-    <!-- </div> -->
-        <!-- <div> -->
+        <input type="text" disabled id="item-name" [(ngModel)]="itemNameValue">
         <label for="item-quantity">Quantity</label>
-        <input type="number" id="item-quantity">
-    <!-- </div> -->
-        <!-- <div> -->
+        <input type="number" id="item-quantity" [(ngModel)]="itemQuantiyValue">
         <label for="item-price">Item Price</label>
-        <input type="number" disabled id="item-price">
-    <!-- </div> -->
+        <input type="number" disabled id="item-price" [(ngModel)]="itemPriceValue">
     </div>
     <div class="collected-items">
     <table class="item-table">
