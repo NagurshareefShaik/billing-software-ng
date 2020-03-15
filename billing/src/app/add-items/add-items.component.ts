@@ -11,11 +11,13 @@ export class AddItemsComponent implements OnInit {
   itemCodeValue:number;
   itemNameValue:string;
   itemPriceValue:number;
+  message:string;
   constructor(
     private addItemService:AddItemsService
     ) {}
 
   ngOnInit() {
+    this.message="welcome!!"
     this.getItemsData();
   }
   getItemsData() {
