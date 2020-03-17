@@ -32,7 +32,7 @@ this.items=res;
   saveItem(){
     this.validation();
     if(this.hasErrror){
-      let data=[];
+      const data:Items=new Items();
       data['itemCode']=this.itemCodeValue;
       data['itemName']=this.itemNameValue;
       data['itemPrice']=this.itemPriceValue;
