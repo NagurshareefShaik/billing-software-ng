@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseUrl } from 'src/app/BaseUrl';
 import { Items } from 'src/app/model/items';
 import { Observable } from 'rxjs';
@@ -8,12 +8,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AddItemsService {
-  private item:Items[]=[];
   getData:string="/getData";
   insertData:string="/insert";
-  
-  saveData(data: Items[]) {
-    this.http.post(this.url.base_url+this.insertData,data).subscribe(res=>{
+ 
+  saveData(data: Items) {
+    this.http.post(this.url.base_url+this.insertData,data,{
+      headers:new HttpHeaders({
+        'Content-Type':'application/json'
+      })
+    }).subscribe(res=>{
       console.log("insert");
     });
   }
