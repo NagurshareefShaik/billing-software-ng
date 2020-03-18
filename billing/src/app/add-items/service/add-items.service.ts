@@ -11,13 +11,11 @@ export class AddItemsService {
   getData:string="/getData";
   insertData:string="/insert";
  
-  saveData(data: Items) {
-    this.http.post(this.url.base_url+this.insertData,data,{
+  saveData(data: Items):Observable<Items[]> {
+    return this.http.post<Items[]>(this.url.base_url+this.insertData,data,{
       headers:new HttpHeaders({
         'Content-Type':'application/json'
       })
-    }).subscribe(res=>{
-      console.log("insert");
     });
   }
 

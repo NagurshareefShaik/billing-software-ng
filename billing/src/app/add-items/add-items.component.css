@@ -39,7 +39,7 @@ table {
     }
     .item-elements{
         width: 100%;
-        margin-top: 70px;
+        margin-top: 20px;
         text-align: center;
         }
         input[type=text],[type=number]{
@@ -75,4 +75,7 @@ table {
     .message label{
         color: white;
         margin-top: 10px;
+    }
+    .record-count label{
+        font:bold;
     }
