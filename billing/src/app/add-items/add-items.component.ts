@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Items } from '../model/items';
 import {AddItemsService} from './service/add-items.service';
-import { Observable } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 
 @Component({
   selector: 'app-add-items',
@@ -15,6 +15,7 @@ export class AddItemsComponent implements OnInit {
   itemPriceValue:number;
   message:string;
   hasErrror:boolean;
+  recordCount:number;
   constructor(
     private addItemService:AddItemsService
     ) {}
@@ -23,6 +24,7 @@ export class AddItemsComponent implements OnInit {
     this.message="welcome!!"
     this.getItemsData().subscribe(res=>{
 this.items=res;
+this.recordCount=res.length;
     });
   }
   getItemsData():Observable<Items[]> {
@@ -36,7 +38,11 @@ this.items=res;
       data['itemCode']=this.itemCodeValue;
       data['itemName']=this.itemNameValue;
       data['itemPrice']=this.itemPriceValue;
-    this.addItemService.saveData(data);
+    this.addItemService.saveData(data).subscribe(result=>{
+      this.items=result;
+      this.recordCount=result.length;
+      this.resetData();
+          });
     }else{
 alert('Please enter required fields');
     }
@@ -48,6 +54,12 @@ this.hasErrror=true;
     else{
       this.hasErrror=false;
     }
+  }
+
+  resetData(){
+    this.itemCodeValue;
+  this.itemNameValue="";
+  this.itemPriceValue;
   }
 
 }
