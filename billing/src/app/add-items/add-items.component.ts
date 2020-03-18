@@ -23,8 +23,8 @@ export class AddItemsComponent implements OnInit {
   ngOnInit() {
     this.message="welcome!!"
     this.getItemsData().subscribe(res=>{
-this.items=res;
-this.recordCount=res.length;
+    this.items=res;
+    this.recordCount=res.length;
     });
   }
   getItemsData():Observable<Items[]> {
@@ -32,13 +32,13 @@ this.recordCount=res.length;
   }
 
   saveItem(){
-    this.validation();
+      this.validation();
     if(this.hasErrror){
       const data:Items=new Items();
       data['itemCode']=this.itemCodeValue;
       data['itemName']=this.itemNameValue;
       data['itemPrice']=this.itemPriceValue;
-    this.addItemService.saveData(data).subscribe(result=>{
+      this.addItemService.saveData(data).subscribe(result=>{
       this.items=result;
       this.recordCount=result.length;
       this.resetData();
@@ -49,7 +49,7 @@ alert('Please enter required fields');
   }
   validation() {
     if(this.itemCodeValue&&this.itemNameValue&&this.itemPriceValue){
-this.hasErrror=true;
+      this.hasErrror=true;
     }
     else{
       this.hasErrror=false;
@@ -58,8 +58,8 @@ this.hasErrror=true;
 
   resetData(){
     this.itemCodeValue;
-  this.itemNameValue="";
-  this.itemPriceValue;
+    this.itemNameValue="";
+    this.itemPriceValue;
   }
 
 }
