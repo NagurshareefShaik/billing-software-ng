@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Items } from '../model/items';
 import {AddItemsService} from './service/add-items.service';
 import { Observable, empty } from 'rxjs';
+import {MatSnackBar, MatDialog} from '@angular/material';
+
+import { commonText } from '../text/common.text';
+import { ItemsComponent } from '../items/items.component';
 
 @Component({
   selector: 'app-add-items',
@@ -17,7 +21,10 @@ export class AddItemsComponent implements OnInit {
   hasErrror:boolean;
   recordCount:number;
   constructor(
-    private addItemService:AddItemsService
+    private addItemService:AddItemsService,
+    private snackBar:MatSnackBar,
+    private commonText:commonText,
+    private dialog:MatDialog
     ) {}
 
   ngOnInit() {
@@ -42,9 +49,17 @@ export class AddItemsComponent implements OnInit {
       this.items=result;
       this.recordCount=result.length;
       this.resetData();
+      let snackbar=this.snackBar.open(this.commonText.saveMessage);
+      snackbar.afterDismissed().subscribe(()=>{
+        this.snackBar.dismiss;
+      })
           });
     }else{
-alert('Please enter required fields');
+      let snackbar=this.snackBar.open(this.commonText.warningMessage,this.commonText.closeLabel);
+      snackbar.afterDismissed().subscribe(()=>{
+        this.snackBar.dismiss;
+      });
+      // this.dialog.open(ItemsComponent);
     }
   }
   validation() {
@@ -57,9 +72,9 @@ alert('Please enter required fields');
   }
 
   resetData(){
-    this.itemCodeValue;
+    this.itemCodeValue=null;
     this.itemNameValue="";
-    this.itemPriceValue;
+    this.itemPriceValue=null;
   }
 
 }

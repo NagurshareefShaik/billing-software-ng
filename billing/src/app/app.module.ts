@@ -14,6 +14,10 @@ import { AddItemsService } from './add-items/service/add-items.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BaseUrl } from './BaseUrl';
 import {FormsModule} from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+import {commonText} from './text/common.text';
+import { ItemsComponent } from './items/items.component';
 
 @NgModule({
   declarations: [
@@ -22,19 +26,25 @@ import {FormsModule} from "@angular/forms";
     AddItemsComponent,
     HomePgeComponent,
     BillingDataComponent,
-    BillingDayInfoComponent
+    BillingDayInfoComponent,
+    ItemsComponent
   ],
+  entryComponents:[ItemsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule
+    
   ],
   providers: [
     BillingPortalService,
     BillingDataService,
     AddItemsService,
-    BaseUrl
+    BaseUrl,
+    commonText
   ],
   bootstrap: [AppComponent]
 })
