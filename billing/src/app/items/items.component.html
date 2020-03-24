@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Add Items</h2>
+<mat-dialog-content>
+    <div class="item-elements">
+        <div>
+            <label for="item-code">Item Code</label>
+            <input matInput  [(ngModel)]="itemCodeValue">
+        </div>
+        <div>
+            <label for="item-name">Item Name</label>
+            <input matInput  [(ngModel)]="itemNameValue">
+        </div>
+        <div>
+            <label for="item-price" >Item Price</label>
+            <input matInput  [(ngModel)]="itemPriceValue">
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-dialog-button>Add</button>
+    <button mat-dialog-button>Cancel</button>
+</mat-dialog-actions>
+
