@@ -38,14 +38,26 @@ billingData:BillingData=new BillingData;
   }
 
   save(){
+    if(this.billingDataList.length>0){
       this.billingData.billNumber=this.billNumber;
       this.billingData.billDate=new Date().toLocaleDateString();
-      this.billingData.billAmount=this.totalAmount;
+      this.billingData.totalAmount=this.totalAmount;
       this.billingData.billingItems=this.billingDataList;
-      this.billingService.saveBillingData(this.billingData).subscribe(()=>{
-
+      this.billingService.saveBillingData(this.billingData).subscribe((res)=>{
+        let snackRef=this.snackBar.open(this.text.dataSaveMessage,this.text.closeLabel);
+        snackRef.afterDismissed().subscribe(()=>{
+          this.snackBar.dismiss();
+        });
+        snackRef.afterOpened().subscribe(()=>{
+          this.billingDataList=[];
+          this.totalAmount=0;
+        });
       });
-
+      
+    }
+    else{
+      alert('there is no data to save');
+    }
   }
 
   print(){
@@ -93,6 +105,9 @@ window.print();
         if(res['itemName']){
           this.itemNameValue=res['itemName'];
           this.itemPriceValue=res['itemPrice'];
+          if(this.itemQuantiyValue){
+            this.quantityChange();
+          }
         }
         else{
           let snackRef=this.snackBar.open(this.text.noDataFound,this.text.closeLabel);

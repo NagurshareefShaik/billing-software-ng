@@ -7,17 +7,17 @@
         <label class="title-label">Billing Information</label>
     </div>    
     </div>
-    <div class="search-button">
-        <input type="button" (click)="save()" value="Search">
-    </div>
+    
     <div class="time-and-bill">
        <label>{{date}}</label>
     </div>
     <div class="item-elements">
-        <label for="item-code">Bill Number</label>
+        <label for="bill-number">Bill Number</label>
         <input type="number" id="bill-number" >
         <label for="date">Date</label>
         <input type="date"  id="date">
+        <input type="button"  value="Search">
+        <input type="button"  value="Print">
     </div>
     <div class="collected-items">
     <table class="item-table">
@@ -25,11 +25,13 @@
         <th>Bill Number</th>
         <th>Date</th>
         <th>Amount</th>
+        <th>Actions</th>
         </tr>
-        <tr *ngFor="let item of items">
+        <tr *ngFor="let item of billingData">
             <td>{{item.billNumber}}</td>
-            <td>{{item.date}}</td>
-            <td>{{item.amount}}</td>
+            <td>{{item.billDate}}</td>
+            <td>{{item.totalAmount}}</td>
+            <td><button>View</button></td>
         </tr>
     </table>
     </div>
