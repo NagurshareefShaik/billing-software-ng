@@ -4,7 +4,7 @@ export class BillingData{
 
     billNumber:number;
     billDate:string;
-    billAmount:number;
+    totalAmount:number;
     billingItems:BillingItems[]=[];
 
 }

@@ -10,9 +10,6 @@
     <div class="message" hidden>
         <label >{{message}}</label>
     </div>
-    <div class="save-button">
-        <input type="button" (click)="saveItem()" value="Save">
-    </div>
     <div class="item-elements">
         <label for="item-code">Item Code</label>
         <input type="number" id="item-code" [(ngModel)]="itemCodeValue">
@@ -20,6 +17,8 @@
         <input type="text" id="item-name" [(ngModel)]="itemNameValue">
         <label for="item-price">Item Price</label>
         <input type="number" id="item-price" [(ngModel)]="itemPriceValue">
+        <input type="button" (click)="saveItem()" value="Save">
+        <input type="button"  value="Print">
     </div>
     
     <div class="record-count">
@@ -31,11 +30,13 @@
         <th>Item Code</th>
         <th>Item Name</th>
         <th>Price</th>
+        <th>Actions</th>
         </tr>
         <tr *ngFor="let item of items">
             <td>{{item.itemCode}}</td>
             <td>{{item.itemName}}</td>
             <td>{{item.itemPrice}}</td>
+            <td><button class="edit">Edit</button><button class="view">View</button><button class="delete">Delete</button></td>
         </tr>
     </table>
         </div>
