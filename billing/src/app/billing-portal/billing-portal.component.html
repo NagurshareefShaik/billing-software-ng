@@ -1,64 +1,89 @@
 <div class="parent-class">
-    <div class="header">
-        <div class="home">
-            <a href="home-page">Home</a>
-        </div>
+  <div class="header">
+    <div class="home">
+      <a mat-button href="home-page">Home</a>
+    </div>
     <div class="title">
-        <label class="title-label">Billing Portal</label>
-    </div>    
+      <label class="title-label">Billing Portal</label>
     </div>
-    <div class="save-print-buttons">
-        <input type="button" (click)="save()" value="Save">
-        <input type="button" (click)="print()" value="Print">
-    </div>
-    <div class="time-and-bill">
-       <label>{{date}}</label> <label>{{time}}</label><label>BillNumber:{{billNumber}}</label>
-    </div>
-    <div class="item-elements">
-        <label for="item-code">Item Code</label>
-        <input type="number" [(ngModel)]="itemCodeValue" (change)="itemChange()">
-        <label for="item-name">Item Name</label>
-        <input type="text" disabled  [(ngModel)]="itemNameValue">
-        <label for="item-quantity">Quantity</label>
-        <input type="number"  [(ngModel)]="itemQuantiyValue" (change)="quantityChange()">
-        <label for="item-price">Item Price</label>
-        <input type="number" disabled [(ngModel)]="itemPriceValue">
-    </div>
-    </div>
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
-      
-          <!-- Position Column -->
-          <ng-container matColumnDef="itemCode">
-            <th mat-header-cell *matHeaderCellDef> ItemCode </th>
-            <td mat-cell *matCellDef="let element"> {{element.itemCode}} </td>
-          </ng-container>
-      
-          <!-- Name Column -->
-          <ng-container matColumnDef="itemName">
-            <th mat-header-cell *matHeaderCellDef> ItemName </th>
-            <td mat-cell *matCellDef="let element"> {{element.itemName}} </td>
-          </ng-container>
-      
-          <!-- Weight Column -->
-          <ng-container matColumnDef="itemQuantity">
-            <th mat-header-cell *matHeaderCellDef> ItemQuantity </th>
-            <td mat-cell *matCellDef="let element"> {{element.itemQuantity}} </td>
-          </ng-container>
-      
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="itemPrice">
-            <th mat-header-cell *matHeaderCellDef> ItemPrice </th>
-            <td mat-cell *matCellDef="let element"> {{element.itemPrice}} </td>
-          </ng-container>
-      
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
-        </table>
-      
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-      </div>
-      <div class="amount-div">
-        <label for="total-amount">Total Amount</label>
-        <input type="text" disabled [(ngModel)]="totalAmount">
-    </div>
+  </div>
+  <div class="save-print-buttons">
+    <button mat-raised-button (click)="save()">
+      <mat-icon>save</mat-icon>
+    </button>
+    <button mat-raised-button (click)="print()">
+      <mat-icon>print</mat-icon>
+    </button>
+  </div>
+  <div class="time-and-bill">
+    <mat-label>{{date}}</mat-label>
+    <mat-label>{{time}}</mat-label>
+    <mat-label>BillNumber:{{billNumber}}</mat-label>
+  </div>
+  <div class="item-elements">
+    <mat-form-field class="itemcode-form-field">
+      <mat-label>Item Code</mat-label>
+      <input matInput type="number" [(ngModel)]="itemCodeValue" (change)="itemChange()">
+      <button mat-button *ngIf="itemCodeValue" matSuffix mat-icon-button aria-label="Clear" (click)="itemCodeValue=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="itemname-form-field">
+      <mat-label>Item Name</mat-label>
+      <input matInput type="text" [(ngModel)]="itemNameValue" disabled>
+    </mat-form-field>
+    <mat-form-field class="quantity-form-field">
+      <mat-label>Item Quantity</mat-label>
+      <input matInput type="number" [(ngModel)]="itemQuantiyValue" (change)="quantityChange()">
+      <button mat-button *ngIf="itemQuantiyValue" matSuffix mat-icon-button aria-label="Clear"
+        (click)="itemQuantiyValue=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="price-form-field">
+      <mat-label>Item Price</mat-label>
+      <input matInput type="number" [(ngModel)]="itemPriceValue" disabled>
+    </mat-form-field>
+  </div>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- ItemCode Column -->
+    <ng-container matColumnDef="itemCode">
+      <th mat-header-cell *matHeaderCellDef> ItemCode </th>
+      <td mat-cell *matCellDef="let element"> {{element.itemCode}} </td>
+    </ng-container>
+
+    <!-- ItemName Column -->
+    <ng-container matColumnDef="itemName">
+      <th mat-header-cell *matHeaderCellDef> ItemName </th>
+      <td mat-cell *matCellDef="let element"> {{element.itemName}} </td>
+    </ng-container>
+
+    <!-- ItemQauntity Column -->
+    <ng-container matColumnDef="itemQuantity">
+      <th mat-header-cell *matHeaderCellDef> ItemQuantity </th>
+      <td mat-cell *matCellDef="let element"> {{element.itemQuantity}} </td>
+    </ng-container>
+
+    <!-- ItemPrice Column -->
+    <ng-container matColumnDef="itemPrice">
+      <th mat-header-cell *matHeaderCellDef> ItemPrice </th>
+      <td mat-cell *matCellDef="let element"> {{element.itemPrice}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+<div class="amount-div">
+  <mat-form-field appearance="fill">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" [(ngModel)]="totalAmount" class="example-right-align" disabled>
+    <span matPrefix>₹​&nbsp;</span>
+    <span matSuffix>.00</span>
+  </mat-form-field>
+</div>

@@ -8,20 +8,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AddItemsService {
-  getData:string="/getData";
-  insertData:string="/insert";
- 
-  saveData(data: Items):Observable<Items[]> {
-    return this.http.post<Items[]>(this.url.base_url+this.insertData,data,{
-      headers:new HttpHeaders({
-        'Content-Type':'application/json'
+  getData: string = "/getData";
+  insertData: string = "/insert";
+
+  saveData(data: Items): Observable<Items[]> {
+    return this.http.post<Items[]>(this.url.base_url + this.insertData, data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
       })
     });
   }
 
-  getItemData():Observable<Items[]> {
-    return this.http.get<Items[]>(this.url.base_url+this.getData);
+  getItemData(): Observable<Items[]> {
+    return this.http.get<Items[]>(this.url.base_url + this.getData);
   }
 
-  constructor(private http:HttpClient,private url:BaseUrl) { }
+  constructor(private http: HttpClient, private url: BaseUrl) { }
 }

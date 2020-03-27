@@ -10,19 +10,19 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class BillingDataComponent implements OnInit {
 
-  time:string;
-  date:string;
-  billingData:BillingData[]=[];
+  time: string;
+  date: string;
+  billingData: BillingData[] = [];
   displayedColumns: string[] = ['billNumber', 'billDate', 'totalAmount'];
   dataSource = new MatTableDataSource<BillingData>(this.billingData);
   constructor(
-    private billingDataService:BillingDataService
+    private billingDataService: BillingDataService
   ) {
     this.myTimer();
-   }
+  }
 
   ngOnInit() {
-    this.billingDataService.getBillingDataInfo().subscribe(res=>{
+    this.billingDataService.getBillingDataInfo().subscribe(res => {
       this.dataSource = new MatTableDataSource<BillingData>(res);
     });
   }
@@ -30,10 +30,10 @@ export class BillingDataComponent implements OnInit {
   myTimer() {
     var d = new Date();
     this.time = d.toLocaleTimeString();
-    this.date=d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+    this.date = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
   }
 
-  showDialog(row){
+  showDialog(row) {
     console.log(row);
   }
 
