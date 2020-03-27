@@ -41,19 +41,10 @@ input[type=number],[type=date]{
     background-color: lightgrey;
 }
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
     width: 100%;
   }
-  
-  td, th {
-    border: 1px solid black;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
+  .mat-row:hover{
+      cursor: pointer;
   }
   .time-and-bill{
     margin-top: 8px;
