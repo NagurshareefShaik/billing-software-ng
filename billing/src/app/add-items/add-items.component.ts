@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Items } from '../model/items';
 import {AddItemsService} from './service/add-items.service';
 import { Observable, empty } from 'rxjs';
-import {MatSnackBar, MatDialog} from '@angular/material';
+import {MatSnackBar, MatDialog, MatTableDataSource} from '@angular/material';
 
 import { commonText } from '../text/common.text';
 import { ItemsComponent } from '../items/items.component';
@@ -20,6 +20,8 @@ export class AddItemsComponent implements OnInit {
   message:string;
   hasErrror:boolean;
   recordCount:number;
+  displayedColumns: string[] = ['itemCode', 'itemName', 'itemPrice'];
+  dataSource = new MatTableDataSource<Items>(this.items);
   constructor(
     private addItemService:AddItemsService,
     private snackBar:MatSnackBar,
@@ -30,7 +32,7 @@ export class AddItemsComponent implements OnInit {
   ngOnInit() {
     this.message="welcome!!"
     this.getItemsData().subscribe(res=>{
-    this.items=res;
+    this.dataSource = new MatTableDataSource<Items>(res);
     this.recordCount=res.length;
     });
   }
@@ -49,16 +51,10 @@ export class AddItemsComponent implements OnInit {
       this.items=result;
       this.recordCount=result.length;
       this.resetData();
-      let snackbar=this.snackBar.open(this.commonText.saveMessage);
-      snackbar.afterDismissed().subscribe(()=>{
-        this.snackBar.dismiss;
-      })
+      this.showSnackBar(this.commonText.saveMessage);  
           });
     }else{
-      let snackbar=this.snackBar.open(this.commonText.warningMessage,this.commonText.closeLabel);
-      snackbar.afterDismissed().subscribe(()=>{
-        this.snackBar.dismiss;
-      });
+      this.showSnackBar(this.commonText.warningMessage);
       // this.dialog.open(ItemsComponent);
     }
   }
@@ -75,6 +71,19 @@ export class AddItemsComponent implements OnInit {
     this.itemCodeValue=null;
     this.itemNameValue="";
     this.itemPriceValue=null;
+  }
+
+  showDialog(row){
+    console.log(row);
+  }
+
+  showSnackBar(message:string){
+    let snackbar=this.snackBar.open(message,this.commonText.closeLabel,{
+      duration:2000,
+    });
+    snackbar.afterDismissed().subscribe(()=>{
+      this.snackBar.dismiss;
+    });
   }
 
 }

@@ -19,20 +19,29 @@
         <input type="button"  value="Search">
         <input type="button"  value="Print">
     </div>
-    <div class="collected-items">
-    <table class="item-table">
-        <tr>
-        <th>Bill Number</th>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Actions</th>
-        </tr>
-        <tr *ngFor="let item of billingData">
-            <td>{{item.billNumber}}</td>
-            <td>{{item.billDate}}</td>
-            <td>{{item.totalAmount}}</td>
-            <td><button>View</button></td>
-        </tr>
-    </table>
-    </div>
+   <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="billNumber">
+            <th mat-header-cell *matHeaderCellDef> billNumber </th>
+            <td mat-cell *matCellDef="let element"> {{element.billNumber}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="billDate">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.billDate}} </td>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="totalAmount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.totalAmount}} </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDialog(row)"></tr>
+        </table>
+        </div>
     </div>

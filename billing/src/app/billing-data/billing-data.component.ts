@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BillingDataService } from './service/billing-data.service';
 import { BillingData } from '../model/billingData';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-billing-data',
@@ -12,6 +13,8 @@ export class BillingDataComponent implements OnInit {
   time:string;
   date:string;
   billingData:BillingData[]=[];
+  displayedColumns: string[] = ['billNumber', 'billDate', 'totalAmount'];
+  dataSource = new MatTableDataSource<BillingData>(this.billingData);
   constructor(
     private billingDataService:BillingDataService
   ) {
@@ -20,7 +23,7 @@ export class BillingDataComponent implements OnInit {
 
   ngOnInit() {
     this.billingDataService.getBillingDataInfo().subscribe(res=>{
-      this.billingData=res;
+      this.dataSource = new MatTableDataSource<BillingData>(res);
     });
   }
 
@@ -28,6 +31,10 @@ export class BillingDataComponent implements OnInit {
     var d = new Date();
     this.time = d.toLocaleTimeString();
     this.date=d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+  }
+
+  showDialog(row){
+    console.log(row);
   }
 
 }

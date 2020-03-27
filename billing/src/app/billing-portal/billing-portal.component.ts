@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { BillingPortalService } from './service/billing-portal.service';
 import { Items } from '../model/items';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatPaginator } from '@angular/material';
 import { commonText } from '../text/common.text';
 import { BillingItems } from '../model/billingItem';
 import { BillingData } from '../model/billingData';
@@ -13,6 +13,9 @@ import { BillingData } from '../model/billingData';
 })
 
 export class BillingPortalComponent implements OnInit {
+  
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 time:string;
 date:string;
 billNumber:number;
@@ -24,7 +27,8 @@ totalAmount:number;
 billingItems:BillingItems=new BillingItems;
 billingDataList:BillingItems[]=[];
 billingData:BillingData=new BillingData;
-
+displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice'];
+  dataSource = new MatTableDataSource<BillingItems>(this.billingDataList);
   constructor(
     private billingService:BillingPortalService,
     private snackBar:MatSnackBar,
@@ -34,7 +38,7 @@ billingData:BillingData=new BillingData;
    }
 
   ngOnInit() {
-    
+    this.dataSource.paginator = this.paginator;
   }
 
   save(){
@@ -44,19 +48,12 @@ billingData:BillingData=new BillingData;
       this.billingData.totalAmount=this.totalAmount;
       this.billingData.billingItems=this.billingDataList;
       this.billingService.saveBillingData(this.billingData).subscribe((res)=>{
-        let snackRef=this.snackBar.open(this.text.dataSaveMessage,this.text.closeLabel);
-        snackRef.afterDismissed().subscribe(()=>{
-          this.snackBar.dismiss();
-        });
-        snackRef.afterOpened().subscribe(()=>{
-          this.billingDataList=[];
-          this.totalAmount=0;
-        });
+        this.showSnackBar(this.text.dataSaveMessage,"save");
       });
       
     }
     else{
-      alert('there is no data to save');
+      this.showSnackBar(this.text.noDataMessage,"");
     }
   }
 
@@ -68,7 +65,7 @@ window.print();
     var d = new Date();
     this.time = d.toLocaleTimeString();
     this.date=d.toLocaleDateString();
-    this.billNumber=1;
+    this.billNumber=2;
   }
 
   quantityChange(){
@@ -78,6 +75,7 @@ window.print();
       this.billingItems['itemQuantity']=this.itemQuantiyValue;
       this.billingItems['itemPrice']=this.itemQuantiyValue*this.itemPriceValue;
       this.billingDataList.push(this.billingItems);
+      this.dataSource = new MatTableDataSource<BillingItems>(this.billingDataList);
       this.billingItems=new BillingItems;
       this.resetData();
       this.updateAmount();
@@ -95,6 +93,7 @@ window.print();
     this.itemQuantiyValue=null;
     this.itemPriceValue=null;
   }
+
   itemChange(){
     if(this.itemCodeValue){
       const data:Items=new Items();
@@ -110,19 +109,30 @@ window.print();
           }
         }
         else{
-          let snackRef=this.snackBar.open(this.text.noDataFound,this.text.closeLabel);
-            snackRef.afterDismissed().subscribe(()=>{
-              this.snackBar.dismiss();
-            });
-            snackRef.afterOpened().subscribe(()=>{
-              this.itemNameValue="";
-              this.itemPriceValue=null;
-            });
+          this.showSnackBar(this.text.noDataFound,"itemChange");
         }
       });
   }
-
-
-
+ 
   }
+  showSnackBar(message:string,action:string){
+    let snackRef=this.snackBar.open(message,this.text.closeLabel,{
+      duration: 2000,
+    });
+    snackRef.afterDismissed().subscribe(()=>{
+      this.snackBar.dismiss();
+    });
+    if(action==="save"){
+      snackRef.afterOpened().subscribe(()=>{
+        this.billingDataList=[];
+        this.totalAmount=0;
+      });
+    }else{
+      snackRef.afterOpened().subscribe(()=>{
+        this.billingDataList=[];
+        this.totalAmount=0;
+      });
+    }
+  }
+
 }

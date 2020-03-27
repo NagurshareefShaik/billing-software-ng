@@ -12,31 +12,20 @@
     float: right;
     font-size: 18px;
 }
+
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
     width: 100%;
   }
-  th{
-      width: 25%;
-  }
-  
-  td, th {
-    border: 1px solid black;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+  .mat-row:hover{
+    cursor: pointer;
+}
   input[type=button]{
-        width: 70px;
-        height: 25px;
-        border-radius: 4px;
-        outline: none;
-        margin-left: 16px;
-    }
+    width: 70px;
+    height: 25px;
+    border-radius: 4px;
+    outline: none;
+    margin-left: 16px;
+}
     .item-elements{
         width: 100%;
         margin-top: 20px;
