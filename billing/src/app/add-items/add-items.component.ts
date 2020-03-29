@@ -20,7 +20,7 @@ export class AddItemsComponent implements OnInit {
   hasErrror: boolean;
   recordCount: number;
   displayedColumns: string[] = ['itemCode', 'itemName', 'itemPrice'];
-  dataSource :any;
+  dataSource: any;
   constructor(
     private addItemService: AddItemsService,
     private snackBar: MatSnackBar,
@@ -49,10 +49,10 @@ export class AddItemsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Items>(result);
         this.recordCount = result.length;
         this.resetData();
-        this.showSnackBar(this.commonText.saveMessage);
+        this.showSnackBar(this.commonText.saveMessage, 'success');
       });
     } else {
-      this.showSnackBar(this.commonText.warningMessage);
+      this.showSnackBar(this.commonText.warningMessage, 'warning');
     }
   }
   validation() {
@@ -71,14 +71,16 @@ export class AddItemsComponent implements OnInit {
   }
 
   showDialog(row) {
-    let dialogRef=this.dialog.open(ItemsComponent,{
-      data:{ itemCode: row.itemCode,itemName:row.itemName,itemPrice:row.itemPrice},
+    let dialogRef = this.dialog.open(ItemsComponent, {
+      width: '400px', height: '350px',
+      data: { itemCode: row.itemCode, itemName: row.itemName, itemPrice: row.itemPrice }
     });
   }
 
-  showSnackBar(message: string) {
+  showSnackBar(message: string, type: string) {
     let snackbar = this.snackBar.open(message, this.commonText.closeLabel, {
       duration: 2000,
+      panelClass: [type]
     });
     snackbar.afterDismissed().subscribe(() => {
       this.snackBar.dismiss;
