@@ -44,13 +44,13 @@ displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice
       this.billingData.totalAmount=this.totalAmount;
       this.billingData.billingItems=this.billingDataList;
       this.billingService.saveBillingData(this.billingData).subscribe((res)=>{
-        this.showSnackBar(this.text.dataSaveMessage,"save");
         this.dataSource = new MatTableDataSource<BillingItems>([]);
+        this.showSnackBar(this.text.dataSaveMessage,"save","success");
       });
       
     }
     else{
-      this.showSnackBar(this.text.noDataMessage,"");
+      this.showSnackBar(this.text.noDataMessage,"","warning");
     }
   }
 
@@ -106,15 +106,16 @@ window.print();
           }
         }
         else{
-          this.showSnackBar(this.text.noDataFound,"itemChange");
+          this.showSnackBar(this.text.noDataFound,"itemChange","success");
         }
       });
   }
  
   }
-  showSnackBar(message:string,action:string){
+  showSnackBar(message:string,action:string,type:string){
     let snackRef=this.snackBar.open(message,this.text.closeLabel,{
       duration: 2000,
+      panelClass:[type]
     });
     snackRef.afterDismissed().subscribe(()=>{
       this.snackBar.dismiss();
