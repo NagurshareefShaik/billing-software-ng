@@ -5,6 +5,9 @@ import { MatSnackBar, MatTableDataSource, MatPaginator } from '@angular/material
 import { commonText } from '../text/common.text';
 import { BillingItems } from '../model/billingItem';
 import { BillingData } from '../model/billingData';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-billing-portal',
@@ -13,124 +16,130 @@ import { BillingData } from '../model/billingData';
 })
 
 export class BillingPortalComponent implements OnInit {
-time:string;
-date:string;
-billNumber:number;
-itemCodeValue:number;
-itemNameValue:string;
-itemPriceValue:number;
-itemQuantiyValue:number;
-totalAmount:number=0;
-billingItems:BillingItems=new BillingItems;
-billingDataList:BillingItems[]=[];
-billingData:BillingData=new BillingData;
-displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice'];
-  dataSource :any;
+  time: string;
+  date: string;
+  billNumber: number;
+  itemCodeValue: number;
+  itemNameValue= new FormControl();
+  itemPriceValue: number;
+  itemQuantiyValue: number;
+  totalAmount: number = 0;
+  billingItems: BillingItems = new BillingItems;
+  billingDataList: BillingItems[] = [];
+  billingData: BillingData = new BillingData;
+  displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice'];
+  dataSource: any;
+  options: Items[] = [];
+  filteredOptions: Observable<Items[]>;
   constructor(
-    private billingService:BillingPortalService,
-    private snackBar:MatSnackBar,
-    private text:commonText
+    private billingService: BillingPortalService,
+    private snackBar: MatSnackBar,
+    private text: commonText
   ) {
-    setInterval(()=>{this.myTimer();},1000);
-   }
+    setInterval(() => { this.myTimer(); }, 1000);
+  }
 
   ngOnInit() {
+    this.filteredOptions = this.itemNameValue.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    this.billingService.getItemsData().subscribe(res => {
+      this.options = res;
+    });
   }
 
-  save(){
-    if(this.billingDataList.length>0){
-      this.billingData.billNumber=this.billNumber;
-      this.billingData.billDate=new Date().toLocaleDateString();
-      this.billingData.totalAmount=this.totalAmount;
-      this.billingData.billingItems=this.billingDataList;
-      this.billingService.saveBillingData(this.billingData).subscribe((res)=>{
+
+  private _filter(value: string): Items[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.itemName.toLowerCase().includes(filterValue));
+  }
+
+
+
+  save() {
+    if (this.billingDataList.length > 0) {
+      this.billingData.billNumber = this.billNumber;
+      this.billingData.billDate = new Date().toLocaleDateString();
+      this.billingData.totalAmount = this.totalAmount;
+      this.billingData.billingItems = this.billingDataList;
+      this.billingService.saveBillingData(this.billingData).subscribe((res) => {
         this.dataSource = new MatTableDataSource<BillingItems>([]);
-        this.showSnackBar(this.text.dataSaveMessage,"save","success");
+        this.showSnackBar(this.text.dataSaveMessage, "save", "success");
       });
-      
+
     }
-    else{
-      this.showSnackBar(this.text.noDataMessage,"","warning");
+    else {
+      this.showSnackBar(this.text.noDataMessage, "", "warning");
     }
   }
 
-  print(){
-window.print();
+  print() {
+    window.print();
   }
 
   myTimer() {
     var d = new Date();
     this.time = d.toLocaleTimeString();
-    this.date=d.toLocaleDateString();
-    this.billNumber=2;
+    this.date = d.toLocaleDateString();
+    this.billNumber = 2;
   }
 
-  quantityChange(){
-    if(this.itemQuantiyValue&&this.itemNameValue){
-      this.billingItems['itemCode']=this.itemCodeValue;
-      this.billingItems['itemName']=this.itemNameValue;
-      this.billingItems['itemQuantity']=this.itemQuantiyValue;
-      this.billingItems['itemPrice']=this.itemQuantiyValue*this.itemPriceValue;
+  quantityChange() {
+    if (this.itemQuantiyValue && this.itemNameValue.value) {
+      this.billingItems['itemCode'] = this.itemCodeValue;
+      this.billingItems['itemName'] = this.itemNameValue.value;
+      this.billingItems['itemQuantity'] = this.itemQuantiyValue;
+      this.billingItems['itemPrice'] = this.itemQuantiyValue * this.itemPriceValue;
       this.billingDataList.push(this.billingItems);
       this.dataSource = new MatTableDataSource<BillingItems>(this.billingDataList);
-      this.billingItems=new BillingItems;
+      this.billingItems = new BillingItems;
       this.resetData();
       this.updateAmount();
     }
   }
   updateAmount() {
-    this.totalAmount=0;
-    this.billingDataList.forEach(res=>{
-    this.totalAmount+=res.itemPrice;
+    this.totalAmount = 0;
+    this.billingDataList.forEach(res => {
+      this.totalAmount += res.itemPrice;
     });
   }
-  resetData(){
-    this.itemCodeValue=null;
-    this.itemNameValue="";
-    this.itemQuantiyValue=null;
-    this.itemPriceValue=null;
+  resetData() {
+    this.itemCodeValue = null;
+    this.itemNameValue.setValue('');
+    this.itemQuantiyValue = null;
+    this.itemPriceValue = null;
   }
 
-  itemChange(){
-    if(this.itemCodeValue){
-      const data:Items=new Items();
-      data['itemCode']=this.itemCodeValue;
-      data['itemName']=this.itemNameValue;
-      data['itemPrice']=this.itemPriceValue;
-      this.billingService.getItemData(data).subscribe(res=>{
-        if(res['itemName']){
-          this.itemNameValue=res['itemName'];
-          this.itemPriceValue=res['itemPrice'];
-          if(this.itemQuantiyValue){
-            this.quantityChange();
-          }
-        }
-        else{
-          this.showSnackBar(this.text.noDataFound,"itemChange","success");
-        }
-      });
-  }
- 
-  }
-  showSnackBar(message:string,action:string,type:string){
-    let snackRef=this.snackBar.open(message,this.text.closeLabel,{
+  showSnackBar(message: string, action: string, type: string) {
+    let snackRef = this.snackBar.open(message, this.text.closeLabel, {
       duration: 2000,
-      panelClass:[type]
+      panelClass: [type]
     });
-    snackRef.afterDismissed().subscribe(()=>{
+    snackRef.afterDismissed().subscribe(() => {
       this.snackBar.dismiss();
     });
-    if(action==="save"){
-      snackRef.afterOpened().subscribe(()=>{
-        this.billingDataList=[];
-        this.totalAmount=0;
+    if (action === "save") {
+      snackRef.afterOpened().subscribe(() => {
+        this.billingDataList = [];
+        this.totalAmount = 0;
       });
-    }else{
-      snackRef.afterOpened().subscribe(()=>{
-        this.billingDataList=[];
-        this.totalAmount=0;
+    } else {
+      snackRef.afterOpened().subscribe(() => {
+        this.billingDataList = [];
+        this.totalAmount = 0;
       });
     }
   }
 
+  getItemData(event: any, item: Items) {
+    if (event.source.selected) {
+      this.itemCodeValue = item.itemCode;
+      this.itemPriceValue = item.itemPrice;
+      if (this.itemQuantiyValue) {
+        this.quantityChange();
+      }
+    }
+  }
 }

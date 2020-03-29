@@ -1,0 +1,19 @@
+.item-elements {
+    width: 100%;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .mat-row:hover {
+    cursor: pointer;
+    background: darkgray;
+  }
+  .mat-elevation-z8{
+    height: 300px;
+    overflow-x: scroll;
+  }
+  table {
+    width: 100%;
+  }
+  .mat-dialog-actions{
+    float: right;
+}

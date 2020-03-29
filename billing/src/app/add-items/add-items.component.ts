@@ -5,7 +5,7 @@ import { Observable, empty } from 'rxjs';
 import { MatSnackBar, MatDialog, MatTableDataSource } from '@angular/material';
 
 import { commonText } from '../text/common.text';
-import { ItemsComponent } from '../items/items.component';
+import { ItemsDialogComponent } from '../dialogs/items-dialog/items-dialog.component';
 
 @Component({
   selector: 'app-add-items',
@@ -71,7 +71,7 @@ export class AddItemsComponent implements OnInit {
   }
 
   showDialog(row) {
-    let dialogRef = this.dialog.open(ItemsComponent, {
+    let dialogRef = this.dialog.open(ItemsDialogComponent, {
       width: '400px', height: '350px',
       data: { itemCode: row.itemCode, itemName: row.itemName, itemPrice: row.itemPrice }
     });

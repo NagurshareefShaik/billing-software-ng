@@ -13,16 +13,22 @@
     <mat-label>BillNumber:{{billNumber}}</mat-label>
   </div>
   <div class="item-elements">
+      <mat-form-field class="itemname-form-field">
+        <input type="text"
+               aria-label="Number"
+               matInput
+               [formControl]="itemNameValue"
+               [matAutocomplete]="auto">
+               <mat-label>Item Name</mat-label>       
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option (onSelectionChange)="getItemData($event,option)" *ngFor="let option of filteredOptions | async" [value]="option.itemName">
+            {{option.itemName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     <mat-form-field class="itemcode-form-field">
       <mat-label>Item Code</mat-label>
-      <input matInput type="number" [(ngModel)]="itemCodeValue" (change)="itemChange()">
-      <button mat-button *ngIf="itemCodeValue" matSuffix mat-icon-button aria-label="Clear" (click)="itemCodeValue=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
-    <mat-form-field class="itemname-form-field">
-      <mat-label>Item Name</mat-label>
-      <input matInput type="text" [(ngModel)]="itemNameValue" disabled>
+      <input matInput type="number" [(ngModel)]="itemCodeValue" disabled>
     </mat-form-field>
     <mat-form-field class="quantity-form-field">
       <mat-label>Item Quantity</mat-label>

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BillingPortalComponent } from './billing-portal/billing-portal.component';
@@ -11,13 +10,14 @@ import { BillingDayInfoComponent } from './billing-day-info/billing-day-info.com
 import { BillingPortalService } from './billing-portal/service/billing-portal.service';
 import { BillingDataService } from './billing-data/service/billing-data.service';
 import { AddItemsService } from './add-items/service/add-items.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BaseUrl } from './BaseUrl';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import {commonText} from './text/common.text';
-import { ItemsComponent } from './items/items.component';
+import { ItemsDialogComponent } from './dialogs/items-dialog/items-dialog.component';
+import { BillingItemDialogComponent } from './dialogs/billing-item-dialog/billing-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,16 +27,18 @@ import { ItemsComponent } from './items/items.component';
     HomePgeComponent,
     BillingDataComponent,
     BillingDayInfoComponent,
-    ItemsComponent
+    ItemsDialogComponent,
+    BillingItemDialogComponent
   ],
-  entryComponents:[ItemsComponent],
+  entryComponents:[ItemsDialogComponent,BillingItemDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
     
   ],
   providers: [
