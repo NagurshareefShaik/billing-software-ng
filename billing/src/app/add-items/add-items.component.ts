@@ -17,11 +17,10 @@ export class AddItemsComponent implements OnInit {
   itemCodeValue: number;
   itemNameValue: string;
   itemPriceValue: number;
-  message: string;
   hasErrror: boolean;
   recordCount: number;
   displayedColumns: string[] = ['itemCode', 'itemName', 'itemPrice'];
-  dataSource = new MatTableDataSource<Items>(this.items);
+  dataSource :any;
   constructor(
     private addItemService: AddItemsService,
     private snackBar: MatSnackBar,
@@ -30,7 +29,6 @@ export class AddItemsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.message = "welcome!!"
     this.getItemsData().subscribe(res => {
       this.dataSource = new MatTableDataSource<Items>(res);
       this.recordCount = res.length;
@@ -48,14 +46,13 @@ export class AddItemsComponent implements OnInit {
       data['itemName'] = this.itemNameValue;
       data['itemPrice'] = this.itemPriceValue;
       this.addItemService.saveData(data).subscribe(result => {
-        this.items = result;
+        this.dataSource = new MatTableDataSource<Items>(result);
         this.recordCount = result.length;
         this.resetData();
         this.showSnackBar(this.commonText.saveMessage);
       });
     } else {
       this.showSnackBar(this.commonText.warningMessage);
-      // this.dialog.open(ItemsComponent);
     }
   }
   validation() {
@@ -74,7 +71,9 @@ export class AddItemsComponent implements OnInit {
   }
 
   showDialog(row) {
-    console.log(row);
+    let dialogRef=this.dialog.open(ItemsComponent,{
+      data:{ itemCode: row.itemCode,itemName:row.itemName,itemPrice:row.itemPrice},
+    });
   }
 
   showSnackBar(message: string) {

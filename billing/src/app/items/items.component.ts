@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-items',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemsComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public itemData: any) { }
+  itemCodeValue:number=this.itemData.itemCode;
+  itemNameValue:string=this.itemData.itemName;
+  itemPriceValue:number=this.itemData.itemPrice;
 
   ngOnInit() {
   }

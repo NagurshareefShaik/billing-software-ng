@@ -1,10 +1,3 @@
-.title {
-    height: 50px;
-    background-color: aquamarine;
-    text-align: center;
-    font-size: 30px;
-}
-
 .item-elements {
     width: 100%;
     margin-top: 8px;
@@ -29,6 +22,7 @@ table {
 
 .mat-row:hover {
     cursor: pointer;
+    background: darkgray;
 }
 
 .time-and-bill {
@@ -42,4 +36,8 @@ table {
 .home {
     float: right;
     font-size: 18px;
+}
+.mat-elevation-z8{
+    height: 350px;
+    overflow-x: scroll;
 }
