@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BillingDataService } from './service/billing-data.service';
 import { BillingData } from '../model/billingData';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+import { BillingItemDialogComponent } from '../dialogs/billing-item-dialog/billing-item-dialog.component';
 
 @Component({
   selector: 'app-billing-data',
@@ -16,7 +17,8 @@ export class BillingDataComponent implements OnInit {
   displayedColumns: string[] = ['billNumber', 'billDate', 'totalAmount'];
   dataSource :any;
   constructor(
-    private billingDataService: BillingDataService
+    private billingDataService: BillingDataService,
+    private billingDialog:MatDialog
   ) {
     this.myTimer();
   }
@@ -34,7 +36,10 @@ export class BillingDataComponent implements OnInit {
   }
 
   showDialog(row) {
-    console.log(row);
+    let dialogRef = this.billingDialog.open(BillingItemDialogComponent, {
+      width: '650px', height: '550px',
+      data: { billNumber:row.billNumber,billDate:row.billDate,totalAmount:row.totalAmount,billingItems:row.billingItems }
+    });
   }
 
 }

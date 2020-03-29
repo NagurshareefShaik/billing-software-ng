@@ -16,6 +16,7 @@ export class BillingPortalService {
   
   saveBilling: string="/saveBillingData";
   getItem:string="/getItemData";
+  getItemNames: string = "/getItemNames";
 
 
   getItemData(data: Items):Observable<Items>{
@@ -24,6 +25,10 @@ export class BillingPortalService {
         'Content-Type':'application/json'
       })
     });
+  }
+  
+  getItemsData(): Observable<Items[]> {
+    return this.http.get<Items[]>(this.url.base_url + this.getItemNames);
   }
 
   constructor(
