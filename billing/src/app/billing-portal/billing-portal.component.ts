@@ -13,9 +13,6 @@ import { BillingData } from '../model/billingData';
 })
 
 export class BillingPortalComponent implements OnInit {
-  
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 time:string;
 date:string;
 billNumber:number;
@@ -23,12 +20,12 @@ itemCodeValue:number;
 itemNameValue:string;
 itemPriceValue:number;
 itemQuantiyValue:number;
-totalAmount:number;
+totalAmount:number=0;
 billingItems:BillingItems=new BillingItems;
 billingDataList:BillingItems[]=[];
 billingData:BillingData=new BillingData;
 displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice'];
-  dataSource = new MatTableDataSource<BillingItems>(this.billingDataList);
+  dataSource :any;
   constructor(
     private billingService:BillingPortalService,
     private snackBar:MatSnackBar,
@@ -38,7 +35,6 @@ displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice
    }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
   save(){
@@ -49,6 +45,7 @@ displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice
       this.billingData.billingItems=this.billingDataList;
       this.billingService.saveBillingData(this.billingData).subscribe((res)=>{
         this.showSnackBar(this.text.dataSaveMessage,"save");
+        this.dataSource = new MatTableDataSource<BillingItems>([]);
       });
       
     }

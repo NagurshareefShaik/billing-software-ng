@@ -14,7 +14,7 @@ export class BillingDataComponent implements OnInit {
   date: string;
   billingData: BillingData[] = [];
   displayedColumns: string[] = ['billNumber', 'billDate', 'totalAmount'];
-  dataSource = new MatTableDataSource<BillingData>(this.billingData);
+  dataSource :any;
   constructor(
     private billingDataService: BillingDataService
   ) {

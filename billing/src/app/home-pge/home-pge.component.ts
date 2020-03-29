@@ -11,5 +11,10 @@ export class HomePgeComponent implements OnInit {
 
   ngOnInit() {
   }
+  tabIndex = 0 ;
+
+changeTab(event){
+   this.tabIndex = event.index;
+}
 
 }

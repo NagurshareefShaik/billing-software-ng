@@ -1,6 +1,22 @@
-<div class="components">
-        <a href="billing-portal">BillingPortal</a>
-        <a href="billing-data">SavedBillingData</a>
-        <a href="add-items">Items</a>
-        <a href="day-billing-info">Billing Info Per Day</a>
-</div>
+<mat-tab-group mat-align-tabs="center" selectedIndex="0" (selectedTabChange)="changeTab($event)">
+        <mat-tab label="Billing Portal">
+                <ng-template matTabContent>
+                        <app-billing-portal></app-billing-portal>
+                </ng-template>
+        </mat-tab>
+        <mat-tab label="Billing Data">
+                <ng-template matTabContent>
+                        <app-billing-data></app-billing-data>
+                </ng-template>
+        </mat-tab>
+        <mat-tab label="Items">
+                <ng-template matTabContent>
+                        <app-add-items></app-add-items>
+                </ng-template>
+        </mat-tab>
+        <mat-tab label="Day Billing Info">
+                <ng-template matTabContent>
+                        <app-billing-day-info></app-billing-day-info>
+                </ng-template>
+        </mat-tab>
+</mat-tab-group>
