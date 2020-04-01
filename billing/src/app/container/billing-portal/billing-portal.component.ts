@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { BillingPortalService } from './service/billing-portal.service';
-import { Items } from '../model/items';
 import { MatSnackBar, MatTableDataSource, MatPaginator } from '@angular/material';
-import { commonText } from '../text/common.text';
-import { BillingItems } from '../model/billingItem';
-import { BillingData } from '../model/billingData';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { BillingItems } from 'src/app/model/billingItem';
+import { BillingData } from 'src/app/model/billingData';
+import { Items } from 'src/app/model/items';
+import { commonText } from 'src/app/text/common.text';
 
 @Component({
   selector: 'app-billing-portal',
@@ -27,7 +27,7 @@ export class BillingPortalComponent implements OnInit {
   billingItems: BillingItems = new BillingItems;
   billingDataList: BillingItems[] = [];
   billingData: BillingData = new BillingData;
-  displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice'];
+  displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice','totalPrice'];
   dataSource: any;
   options: Items[] = [];
   filteredOptions: Observable<Items[]>;
@@ -83,7 +83,7 @@ export class BillingPortalComponent implements OnInit {
     var d = new Date();
     this.time = d.toLocaleTimeString();
     this.date = d.toLocaleDateString();
-    this.billNumber = 2;
+    this.billNumber=1;
   }
 
   quantityChange() {
@@ -91,7 +91,8 @@ export class BillingPortalComponent implements OnInit {
       this.billingItems['itemCode'] = this.itemCodeValue;
       this.billingItems['itemName'] = this.itemNameValue.value;
       this.billingItems['itemQuantity'] = this.itemQuantiyValue;
-      this.billingItems['itemPrice'] = this.itemQuantiyValue * this.itemPriceValue;
+      this.billingItems['itemPrice'] =this.itemPriceValue;
+      this.billingItems['totalPrice']= this.itemQuantiyValue * this.itemPriceValue;
       this.billingDataList.push(this.billingItems);
       this.dataSource = new MatTableDataSource<BillingItems>(this.billingDataList);
       this.billingItems = new BillingItems;
@@ -102,7 +103,7 @@ export class BillingPortalComponent implements OnInit {
   updateAmount() {
     this.totalAmount = 0;
     this.billingDataList.forEach(res => {
-      this.totalAmount += res.itemPrice;
+      this.totalAmount += res.totalPrice;
     });
   }
   resetData() {
