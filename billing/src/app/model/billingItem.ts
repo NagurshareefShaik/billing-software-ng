@@ -3,4 +3,5 @@ export class BillingItems{
     itemName:string;
     itemPrice:number;
     itemQuantity:number;
+    totalPrice:number;
 }

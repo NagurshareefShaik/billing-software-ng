@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Items } from '../model/items';
 import { AddItemsService } from './service/add-items.service';
 import { Observable, empty } from 'rxjs';
 import { MatSnackBar, MatDialog, MatTableDataSource } from '@angular/material';
+import { commonText } from 'src/app/text/common.text';
+import { Items } from 'src/app/model/items';
+import { ItemsDialogComponent } from 'src/app/dialogs/items-dialog/items-dialog.component';
 
-import { commonText } from '../text/common.text';
-import { ItemsDialogComponent } from '../dialogs/items-dialog/items-dialog.component';
 
 @Component({
   selector: 'app-add-items',

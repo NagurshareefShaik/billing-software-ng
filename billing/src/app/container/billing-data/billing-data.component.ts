@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BillingDataService } from './service/billing-data.service';
-import { BillingData } from '../model/billingData';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-import { BillingItemDialogComponent } from '../dialogs/billing-item-dialog/billing-item-dialog.component';
+import { BillingData } from 'src/app/model/billingData';
+import { BillingItemDialogComponent } from 'src/app/dialogs/billing-item-dialog/billing-item-dialog.component';
 
 @Component({
   selector: 'app-billing-data',

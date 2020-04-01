@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
-import { Items } from 'src/app/model/items';
 import { BillingItems } from 'src/app/model/billingItem';
 
 @Component({
@@ -9,7 +8,7 @@ import { BillingItems } from 'src/app/model/billingItem';
   styleUrls: ['./billing-item-dialog.component.css']
 })
 export class BillingItemDialogComponent implements OnInit {
-  displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice'];
+  displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice','totalPrice'];
   dataSource = new MatTableDataSource<BillingItems>(this.billingData.billingItems);
   billNumber:number=this.billingData.billNumber;
   billDate:string=this.billingData.billDate;

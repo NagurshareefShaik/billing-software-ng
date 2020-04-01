@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomePgeComponent } from './home-pge/home-pge.component';
-import { BillingPortalComponent } from './billing-portal/billing-portal.component';
-import { BillingDataComponent } from './billing-data/billing-data.component';
-import { AddItemsComponent } from './add-items/add-items.component';
-import { BillingDayInfoComponent } from './billing-day-info/billing-day-info.component';
+import { HomePgeComponent } from './container/home-pge/home-pge.component';
+import { BillingPortalComponent } from './container/billing-portal/billing-portal.component';
+import { BillingDataComponent } from './container/billing-data/billing-data.component';
+import { BillingDayInfoComponent } from './container/billing-day-info/billing-day-info.component';
+import { AddItemsComponent } from './container/add-items/add-items.component';
 
 
 const routes: Routes = [
