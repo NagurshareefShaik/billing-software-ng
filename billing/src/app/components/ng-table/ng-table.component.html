@@ -1,1 +1,8 @@
-<p>ng-table works!</p>
+<table mat-table [dataSource]=dataSource>
+    <ng-container [matColumnDef]="tableData" *ngFor="let tableData of objectKeys(displayedColumns)">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedColumns[tableData]}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[tableData] }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="objectKeys(displayedColumns)"></tr>
+    <tr mat-row *matRowDef="let row; columns: objectKeys(displayedColumns);" (click)="methodCall(row)"></tr>
+</table>

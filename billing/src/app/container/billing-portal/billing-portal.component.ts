@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { BillingPortalService } from './service/billing-portal.service';
 import { MatSnackBar, MatTableDataSource, MatPaginator } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { BillingItems } from 'src/app/model/billingItem';
 import { BillingData } from 'src/app/model/billingData';
@@ -20,15 +20,15 @@ export class BillingPortalComponent implements OnInit {
   date: string;
   billNumber: number;
   itemCodeValue: number;
-  itemNameValue= new FormControl();
+  itemNameValue = new FormControl();
   itemPriceValue: number;
   itemQuantiyValue: number;
   totalAmount: number = 0;
   billingItems: BillingItems = new BillingItems;
   billingDataList: BillingItems[] = [];
   billingData: BillingData = new BillingData;
-  displayedColumns: string[] = ['itemCode', 'itemName', 'itemQuantity', 'itemPrice','totalPrice'];
-  dataSource: any;
+  displayedColumns: Object = { 'itemCode': 'Item Code', 'itemName':'Item Name', 'itemQuantity':'Item Quantity', 'itemPrice': 'Item Price', 'totalPrice': 'Total Price' };
+  dataSource: any=new BehaviorSubject<Items[]>([]);
   options: Items[] = [];
   filteredOptions: Observable<Items[]>;
   constructor(
@@ -40,6 +40,7 @@ export class BillingPortalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSource.asObservable();
     this.filteredOptions = this.itemNameValue.valueChanges
       .pipe(
         startWith(''),
@@ -65,7 +66,8 @@ export class BillingPortalComponent implements OnInit {
       this.billingData.totalAmount = this.totalAmount;
       this.billingData.billingItems = this.billingDataList;
       this.billingService.saveBillingData(this.billingData).subscribe((res) => {
-        this.dataSource = new MatTableDataSource<BillingItems>([]);
+        this.dataSource.next([]);
+        // this.dataSource = new MatTableDataSource<BillingItems>([]);
         this.showSnackBar(this.text.dataSaveMessage, "save", "success");
       });
 
@@ -83,7 +85,7 @@ export class BillingPortalComponent implements OnInit {
     var d = new Date();
     this.time = d.toLocaleTimeString();
     this.date = d.toLocaleDateString();
-    this.billNumber=1;
+    this.billNumber = 1;
   }
 
   quantityChange() {
@@ -91,13 +93,13 @@ export class BillingPortalComponent implements OnInit {
       this.billingItems['itemCode'] = this.itemCodeValue;
       this.billingItems['itemName'] = this.itemNameValue.value;
       this.billingItems['itemQuantity'] = this.itemQuantiyValue;
-      this.billingItems['itemPrice'] =this.itemPriceValue;
-      this.billingItems['totalPrice']= this.itemQuantiyValue * this.itemPriceValue;
+      this.billingItems['itemPrice'] = this.itemPriceValue;
+      this.billingItems['totalPrice'] = this.itemQuantiyValue * this.itemPriceValue;
       this.billingDataList.push(this.billingItems);
-      this.dataSource = new MatTableDataSource<BillingItems>(this.billingDataList);
       this.billingItems = new BillingItems;
       this.resetData();
       this.updateAmount();
+      this.dataSource.next(this.billingDataList);
     }
   }
   updateAmount() {
