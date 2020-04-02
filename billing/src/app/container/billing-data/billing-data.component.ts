@@ -3,6 +3,7 @@ import { BillingDataService } from './service/billing-data.service';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { BillingData } from 'src/app/model/billingData';
 import { BillingItemDialogComponent } from 'src/app/dialogs/billing-item-dialog/billing-item-dialog.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-billing-data',
@@ -14,8 +15,8 @@ export class BillingDataComponent implements OnInit {
   time: string;
   date: string;
   billingData: BillingData[] = [];
-  displayedColumns: string[] = ['billNumber', 'billDate', 'totalAmount'];
-  dataSource :any;
+  displayedColumns: Object = {'billNumber':'Bill Number', 'billDate':'Bill Date', 'totalAmount':'Total Amount'};
+  dataSource: any=new BehaviorSubject<BillingData[]>([]);
   constructor(
     private billingDataService: BillingDataService,
     private billingDialog:MatDialog
@@ -24,8 +25,9 @@ export class BillingDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSource.asObservable();
     this.billingDataService.getBillingDataInfo().subscribe(res => {
-      this.dataSource = new MatTableDataSource<BillingData>(res);
+      this.dataSource.next(res);
     });
   }
 

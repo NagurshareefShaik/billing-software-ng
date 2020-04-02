@@ -20,10 +20,6 @@ table {
     width: 100%;
 }
 
-.mat-row:hover {
-    cursor: pointer;
-    background: darkgray;
-}
 
 .time-and-bill {
     margin-top: 8px;

@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { AddItemsService } from './service/add-items.service';
-import { Observable, empty } from 'rxjs';
+import { Observable, empty, BehaviorSubject } from 'rxjs';
 import { MatSnackBar, MatDialog, MatTableDataSource } from '@angular/material';
 import { commonText } from 'src/app/text/common.text';
 import { Items } from 'src/app/model/items';
@@ -19,8 +19,8 @@ export class AddItemsComponent implements OnInit {
   itemPriceValue: number;
   hasErrror: boolean;
   recordCount: number;
-  displayedColumns: string[] = ['itemCode', 'itemName', 'itemPrice'];
-  dataSource: any;
+  displayedColumns: Object = {'itemCode':'Item Code', 'itemName':'Item Name', 'itemPrice':'Item Price'};
+  dataSource: any=new BehaviorSubject<Items[]>([]);
   constructor(
     private addItemService: AddItemsService,
     private snackBar: MatSnackBar,
@@ -30,7 +30,8 @@ export class AddItemsComponent implements OnInit {
 
   ngOnInit() {
     this.getItemsData().subscribe(res => {
-      this.dataSource = new MatTableDataSource<Items>(res);
+      this.dataSource.asObservable();
+      this.dataSource.next(res);
       this.recordCount = res.length;
     });
   }
@@ -46,7 +47,7 @@ export class AddItemsComponent implements OnInit {
       data['itemName'] = this.itemNameValue;
       data['itemPrice'] = this.itemPriceValue;
       this.addItemService.saveData(data).subscribe(result => {
-        this.dataSource = new MatTableDataSource<Items>(result);
+        this.dataSource.next(result);
         this.recordCount = result.length;
         this.resetData();
         this.showSnackBar(this.commonText.saveMessage, 'success');

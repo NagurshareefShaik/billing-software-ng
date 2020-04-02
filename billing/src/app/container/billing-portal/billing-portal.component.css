@@ -17,15 +17,11 @@ mat-form-field {
   margin-top: 16px;
 }
 
-table {
-  width: 100%;
-}
-
 .time-and-bill {
   margin-top: 8px;
 }
 
-.time-and-bill mat-label {
+.time-and-bill app-ng-label {
   margin-right: 24px;
   font-size: 20px;
 }
@@ -34,16 +30,20 @@ table {
   cursor: pointer;
   background: darkgray;
 }
-.mat-elevation-z8{
+
+.mat-elevation-z8 {
   height: 300px;
   overflow-x: scroll;
 }
-::ng-deep .warning{
-  background-color:red;
+
+::ng-deep .warning {
+  background-color: red;
 }
-::ng-deep .success{
-  background-color:black;
+
+::ng-deep .success {
+  background-color: black;
 }
+
 ::ng-deep .warning .mat-simple-snackbar-action {
   color: white !important;
 }

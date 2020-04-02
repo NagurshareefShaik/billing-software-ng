@@ -8,24 +8,24 @@
     </button>
   </div>
   <div class="time-and-bill">
-    <mat-label>{{date}}</mat-label>
+    <app-ng-label [label]=[date]></app-ng-label>
+    <app-ng-label [label]=[time]></app-ng-label>
+    <app-ng-label [label]=[billNumber]></app-ng-label>
+    <!-- <mat-label>{{date}}</mat-label>
     <mat-label>{{time}}</mat-label>
-    <mat-label>BillNumber:{{billNumber}}</mat-label>
+    <mat-label>BillNumber:{{billNumber}}</mat-label> -->
   </div>
   <div class="item-elements">
-      <mat-form-field class="itemname-form-field">
-        <input type="text"
-               aria-label="Number"
-               matInput
-               [formControl]="itemNameValue"
-               [matAutocomplete]="auto">
-               <mat-label>Item Name</mat-label>       
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option (onSelectionChange)="getItemData($event,option)" *ngFor="let option of filteredOptions | async" [value]="option.itemName">
-            {{option.itemName}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+    <mat-form-field class="itemname-form-field">
+      <input type="text" aria-label="Number" matInput [formControl]="itemNameValue" [matAutocomplete]="auto">
+      <mat-label>Item Name</mat-label>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option (onSelectionChange)="getItemData($event,option)" *ngFor="let option of filteredOptions | async"
+          [value]="option.itemName">
+          {{option.itemName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
     <mat-form-field class="itemcode-form-field">
       <mat-label>Item Code</mat-label>
       <input matInput type="number" [(ngModel)]="itemCodeValue" disabled>
@@ -45,42 +45,8 @@
   </div>
 </div>
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
-
-    <!-- ItemCode Column -->
-    <ng-container matColumnDef="itemCode">
-      <th mat-header-cell *matHeaderCellDef> ItemCode </th>
-      <td mat-cell *matCellDef="let element"> {{element.itemCode}} </td>
-    </ng-container>
-
-    <!-- ItemName Column -->
-    <ng-container matColumnDef="itemName">
-      <th mat-header-cell *matHeaderCellDef> ItemName </th>
-      <td mat-cell *matCellDef="let element"> {{element.itemName}} </td>
-    </ng-container>
-
-    <!-- ItemQauntity Column -->
-    <ng-container matColumnDef="itemQuantity">
-      <th mat-header-cell *matHeaderCellDef> ItemQuantity </th>
-      <td mat-cell *matCellDef="let element"> {{element.itemQuantity}} </td>
-    </ng-container>
-
-    <!-- ItemPrice Column -->
-    <ng-container matColumnDef="itemPrice">
-      <th mat-header-cell *matHeaderCellDef> ItemPrice </th>
-      <td mat-cell *matCellDef="let element"> {{element.itemPrice}} </td>
-    </ng-container>
-
-    <!-- ItemPrice Column -->
-    <ng-container matColumnDef="totalPrice">
-      <th mat-header-cell *matHeaderCellDef> TotalPrice </th>
-      <td mat-cell *matCellDef="let element"> {{element.totalPrice}} </td>
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <app-ng-table [tableData]="dataSource" [displayedColumns]="displayedColumns" (rowClick)="showDialog($event)">
+  </app-ng-table>
 </div>
 <div class="amount-div">
   <mat-form-field appearance="fill">
