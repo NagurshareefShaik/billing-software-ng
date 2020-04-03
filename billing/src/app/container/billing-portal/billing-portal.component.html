@@ -1,11 +1,7 @@
 <div class="parent-class">
   <div class="save-print-buttons">
-    <button mat-raised-button (click)="save()">
-      <mat-icon>save</mat-icon>
-    </button>
-    <button mat-raised-button (click)="print()">
-      <mat-icon>print</mat-icon>
-    </button>
+    <app-ng-button [btnIcon]="'save'" (click)="save()"></app-ng-button>
+    <app-ng-button [btnIcon]="'print'" (click)="print()"></app-ng-button>
   </div>
   <div class="time-and-bill">
     <app-ng-label [label]=[date]></app-ng-label>
@@ -26,10 +22,8 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field class="itemcode-form-field">
-      <mat-label>Item Code</mat-label>
-      <input matInput type="number" [(ngModel)]="itemCodeValue" disabled>
-    </mat-form-field>
+    <app-ng-input [label]="'Item Code'" (value)="itemCodeValue=$event" [type]="number" [readonly]="true"
+      [icon]="'close'" [model]="itemCodeValue"></app-ng-input>
     <mat-form-field class="quantity-form-field">
       <mat-label>Item Quantity</mat-label>
       <input matInput type="number" [(ngModel)]="itemQuantiyValue" (change)="quantityChange()">
@@ -38,14 +32,12 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <mat-form-field class="price-form-field">
-      <mat-label>Item Price</mat-label>
-      <input matInput type="number" [(ngModel)]="itemPriceValue" disabled>
-    </mat-form-field>
+    <app-ng-input [label]="'Item Price'" (value)="itemPriceValue=$event" [type]="number" [readonly]="true"
+      [icon]="'close'" [model]="itemPriceValue"></app-ng-input>
   </div>
 </div>
 <div class="mat-elevation-z8">
-  <app-ng-table [tableData]="dataSource" [displayedColumns]="displayedColumns" (rowClick)="showDialog($event)">
+  <app-ng-table [tableData]="dataSource" [displayedColumns]="displayedColumns">
   </app-ng-table>
 </div>
 <div class="amount-div">

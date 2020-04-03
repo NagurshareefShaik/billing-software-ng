@@ -15,19 +15,18 @@ export class BillingDataComponent implements OnInit {
   time: string;
   date: string;
   billingData: BillingData[] = [];
-  displayedColumns: Object = {'billNumber':'Bill Number', 'billDate':'Bill Date', 'totalAmount':'Total Amount'};
-  dataSource: any=new BehaviorSubject<BillingData[]>([]);
+  displayedColumns: Object = { 'billNumber': 'Bill Number', 'billDate': 'Bill Date', 'totalAmount': 'Total Amount' };
+  dataSource: any;
   constructor(
     private billingDataService: BillingDataService,
-    private billingDialog:MatDialog
+    private billingDialog: MatDialog
   ) {
     this.myTimer();
   }
 
   ngOnInit() {
-    this.dataSource.asObservable();
     this.billingDataService.getBillingDataInfo().subscribe(res => {
-      this.dataSource.next(res);
+      this.dataSource = new MatTableDataSource<BillingData>(res);
     });
   }
 
@@ -40,7 +39,7 @@ export class BillingDataComponent implements OnInit {
   showDialog(row) {
     let dialogRef = this.billingDialog.open(BillingItemDialogComponent, {
       width: '650px', height: '550px',
-      data: { billNumber:row.billNumber,billDate:row.billDate,totalAmount:row.totalAmount,billingItems:row.billingItems }
+      data: { billNumber: row.billNumber, billDate: row.billDate, totalAmount: row.totalAmount, billingItems: row.billingItems }
     });
   }
 

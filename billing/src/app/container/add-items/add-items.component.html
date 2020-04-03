@@ -1,37 +1,22 @@
 <div class="parent">
   <div class="item-elements">
-    <!-- <app-ng-input [label]="Item Code" [type]="number" [icon]="'close'" [model]="itemCodeValue"></app-ng-input> -->
-    <mat-form-field class="itemcode-form-field">
-      <mat-label>Item Code</mat-label>
-      <input matInput type="number" [(ngModel)]="itemCodeValue">
-      <button mat-button *ngIf="itemCodeValue" matSuffix mat-icon-button aria-label="Clear" (click)="itemCodeValue=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
-    <mat-form-field class="itemname-form-field">
-      <mat-label>Item Name</mat-label>
-      <input matInput type="text" [(ngModel)]="itemNameValue">
-      <button mat-button *ngIf="itemNameValue" matSuffix mat-icon-button aria-label="Clear" (click)="itemNameValue=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
-    <mat-form-field class="price-form-field">
-      <mat-label>Item Price</mat-label>
-      <input matInput type="number" [(ngModel)]="itemPriceValue">
-      <button mat-button *ngIf="itemPriceValue" matSuffix mat-icon-button aria-label="Clear"
-        (click)="itemPriceValue=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+    <app-ng-input [label]="'Item Code'" (value)="itemCodeValue=$event" [type]="number" [icon]="'close'"
+      [model]="itemCodeValue"></app-ng-input>
+    <app-ng-input [label]="'Item Name'" (value)="itemNameValue=$event" [type]="text" [icon]="'close'"
+      [model]="itemNameValue"></app-ng-input>
+    <app-ng-input [label]="'Item Price'" (value)="itemPriceValue=$event" [type]="number" [icon]="'close'"
+      [model]="itemPriceValue"></app-ng-input>
     <app-ng-button [btnIcon]="'save'" (click)="saveItem()"></app-ng-button>
-    <app-ng-button [btnIcon]="'print'"></app-ng-button>
+    <app-ng-button [btnIcon]="'print'" (click)="print()"></app-ng-button>
   </div>
 
   <div class="record-count">
-    <label>Item Count:{{recordCount}}</label>
+    <app-ng-label [label]="'RecordCount'"></app-ng-label>
+    <app-ng-label [label]="recordCount"></app-ng-label>
   </div>
   <div class="mat-elevation-z8">
-    <app-ng-table [tableData]="dataSource" [displayedColumns]="displayedColumns" (rowClick)="showDialog($event)"></app-ng-table>
+    <app-ng-table [tableData]="dataSource" [displayedColumns]="displayedColumns" (rowClick)="showDialog($event)">
+    </app-ng-table>
   </div>
 
 </div>

@@ -4,10 +4,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BaseUrl } from './BaseUrl';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import {commonText} from './text/common.text';
+import { commonText } from './text/common.text';
 import { ItemsDialogComponent } from './dialogs/items-dialog/items-dialog.component';
 import { BillingItemDialogComponent } from './dialogs/billing-item-dialog/billing-item-dialog.component';
 import { BillingPortalComponent } from './container/billing-portal/billing-portal.component';
@@ -22,6 +22,7 @@ import { NgButtonComponent } from './components/ng-button/ng-button.component';
 import { NgLabelComponent } from './components/ng-label/ng-label.component';
 import { NgInputComponent } from './components/ng-input/ng-input.component';
 import { NgTableComponent } from './components/ng-table/ng-table.component';
+import { NgDivComponent } from './components/ng-div/ng-div.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +37,10 @@ import { NgTableComponent } from './components/ng-table/ng-table.component';
     NgButtonComponent,
     NgLabelComponent,
     NgInputComponent,
-    NgTableComponent
+    NgTableComponent,
+    NgDivComponent
   ],
-  entryComponents:[ItemsDialogComponent,BillingItemDialogComponent],
+  entryComponents: [ItemsDialogComponent, BillingItemDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,7 +49,7 @@ import { NgTableComponent } from './components/ng-table/ng-table.component';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule
-    
+
   ],
   providers: [
     BillingPortalService,

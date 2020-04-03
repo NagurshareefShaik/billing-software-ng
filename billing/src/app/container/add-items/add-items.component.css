@@ -1,43 +1,26 @@
-mat-form-field {
-    padding-right: 32px;
-}
-
 .item-elements {
     width: 100%;
     margin-top: 20px;
     text-align: center;
 }
 
-.collected-items {
-    margin-top: 30px;
-    width: 100%;
-    height: 300px;
-    overflow: scroll;
-    background-color: lightgrey;
-}
-
-.message label {
-    color: white;
-    margin-top: 10px;
-}
-
 .record-count label {
     font: bold;
 }
 
-.edit, .view, .delete {
-    margin-left: 16px;
-}
-.mat-elevation-z8{
+.mat-elevation-z8 {
     height: 400px;
     overflow-x: scroll;
 }
-::ng-deep .warning{
-    background-color:red;
+
+::ng-deep .warning {
+    background-color: red;
 }
-::ng-deep .success{
-    background-color:black;
+
+::ng-deep .success {
+    background-color: black;
 }
+
 ::ng-deep .warning .mat-simple-snackbar-action {
     color: white !important;
 }

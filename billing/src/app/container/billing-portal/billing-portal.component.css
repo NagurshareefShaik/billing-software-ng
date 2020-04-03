@@ -21,11 +21,6 @@ mat-form-field {
   margin-top: 8px;
 }
 
-.time-and-bill app-ng-label {
-  margin-right: 24px;
-  font-size: 20px;
-}
-
 .mat-row:hover {
   cursor: pointer;
   background: darkgray;

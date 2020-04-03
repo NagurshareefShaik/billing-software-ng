@@ -1,29 +1,21 @@
 <div class="parent-class">
   <div class="time-and-bill">
-    <label>{{date}}</label>
+    <app-ng-label [label]=[date]></app-ng-label>
   </div>
   <div class="item-elements">
-    <mat-form-field class="itemcode-form-field">
-      <mat-label>Bill Number</mat-label>
-      <input matInput type="number" [(ngModel)]="billNumber">
-      <button mat-button *ngIf="billNumber" matSuffix mat-icon-button aria-label="Clear" (click)="billNumber=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+    <app-ng-input [label]="'Bill Number'" (value)="billNumber=$event" [type]="number" [icon]="'close'"
+      [model]="billNumber"></app-ng-input>
     <mat-form-field>
       <mat-label>Choose a date</mat-label>
       <input matInput [matDatepicker]="picker">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <button mat-button>
-      <mat-icon>search</mat-icon>
-    </button>
-    <button mat-raised-button>
-      <mat-icon>print</mat-icon>
-    </button>
+    <app-ng-button [btnIcon]="'search'"></app-ng-button>
+    <app-ng-button [btnIcon]="'print'"></app-ng-button>
   </div>
   <div class="mat-elevation-z8">
-    <app-ng-table [tableData]="dataSource" [displayedColumns]="displayedColumns" (rowClick)="showDialog($event)"></app-ng-table>
+    <app-ng-table [tableData]="dataSource" [displayedColumns]="displayedColumns" (rowClick)="showDialog($event)">
+    </app-ng-table>
   </div>
 </div>
