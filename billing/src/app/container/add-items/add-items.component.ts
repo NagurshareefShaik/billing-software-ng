@@ -19,8 +19,8 @@ export class AddItemsComponent implements OnInit {
   itemPriceValue: number;
   hasErrror: boolean;
   recordCount: number;
-  displayedColumns: Object = {'itemCode':'Item Code', 'itemName':'Item Name', 'itemPrice':'Item Price'};
-  dataSource: any=new BehaviorSubject<Items[]>([]);
+  displayedColumns: Object = { 'itemCode': 'Item Code', 'itemName': 'Item Name', 'itemPrice': 'Item Price' };
+  dataSource: any;
   constructor(
     private addItemService: AddItemsService,
     private snackBar: MatSnackBar,
@@ -30,8 +30,7 @@ export class AddItemsComponent implements OnInit {
 
   ngOnInit() {
     this.getItemsData().subscribe(res => {
-      this.dataSource.asObservable();
-      this.dataSource.next(res);
+      this.dataSource = new MatTableDataSource<Items>(res);
       this.recordCount = res.length;
     });
   }
@@ -47,7 +46,7 @@ export class AddItemsComponent implements OnInit {
       data['itemName'] = this.itemNameValue;
       data['itemPrice'] = this.itemPriceValue;
       this.addItemService.saveData(data).subscribe(result => {
-        this.dataSource.next(result);
+        this.dataSource = new MatTableDataSource<Items>(result);
         this.recordCount = result.length;
         this.resetData();
         this.showSnackBar(this.commonText.saveMessage, 'success');

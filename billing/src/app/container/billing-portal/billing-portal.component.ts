@@ -27,8 +27,8 @@ export class BillingPortalComponent implements OnInit {
   billingItems: BillingItems = new BillingItems;
   billingDataList: BillingItems[] = [];
   billingData: BillingData = new BillingData;
-  displayedColumns: Object = { 'itemCode': 'Item Code', 'itemName':'Item Name', 'itemQuantity':'Item Quantity', 'itemPrice': 'Item Price', 'totalPrice': 'Total Price' };
-  dataSource: any=new BehaviorSubject<Items[]>([]);
+  displayedColumns: Object = { 'itemCode': 'Item Code', 'itemName': 'Item Name', 'itemQuantity': 'Item Quantity', 'itemPrice': 'Item Price', 'totalPrice': 'Total Price' };
+  dataSource: any;
   options: Items[] = [];
   filteredOptions: Observable<Items[]>;
   constructor(
@@ -40,7 +40,6 @@ export class BillingPortalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource.asObservable();
     this.filteredOptions = this.itemNameValue.valueChanges
       .pipe(
         startWith(''),
@@ -66,8 +65,7 @@ export class BillingPortalComponent implements OnInit {
       this.billingData.totalAmount = this.totalAmount;
       this.billingData.billingItems = this.billingDataList;
       this.billingService.saveBillingData(this.billingData).subscribe((res) => {
-        this.dataSource.next([]);
-        // this.dataSource = new MatTableDataSource<BillingItems>([]);
+        this.dataSource = new MatTableDataSource<BillingItems>([]);
         this.showSnackBar(this.text.dataSaveMessage, "save", "success");
       });
 
@@ -99,7 +97,7 @@ export class BillingPortalComponent implements OnInit {
       this.billingItems = new BillingItems;
       this.resetData();
       this.updateAmount();
-      this.dataSource.next(this.billingDataList);
+      this.dataSource = new MatTableDataSource<BillingItems>(this.billingDataList);
     }
   }
   updateAmount() {

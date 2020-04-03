@@ -1,7 +1,7 @@
-<!-- <mat-form-field>
-    <app-ng-label [label]="label"></app-ng-label>
-    <input matInput type="type" [(ngModel)]="model">
-    <button mat-button *ngIf="model" matSuffix mat-icon-button aria-label="Clear">
+<mat-form-field>
+    <mat-label>{{label}}</mat-label>
+    <input matInput type="type" [(ngModel)]="model" (ngModelChange)="valuechange(model)" [disabled]="readonly">
+    <button mat-button *ngIf="model" matSuffix mat-icon-button aria-label="Clear" (click)="model=''">
         <mat-icon>{{icon}}</mat-icon>
     </button>
-  </mat-form-field> -->
+</mat-form-field>
