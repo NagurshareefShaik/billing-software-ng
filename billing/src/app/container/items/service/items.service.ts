@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AddItemsService {
+export class ItemsService {
   getData: string = "/getData";
   insertData: string = "/insert";
 
