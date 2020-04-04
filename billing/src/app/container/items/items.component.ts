@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
-import { AddItemsService } from './service/add-items.service';
+import { ItemsService } from './service/items.service';
 import { Observable, empty, BehaviorSubject } from 'rxjs';
 import { MatSnackBar, MatDialog, MatTableDataSource } from '@angular/material';
 import { commonText } from 'src/app/text/common.text';
@@ -8,11 +8,11 @@ import { ItemsDialogComponent } from 'src/app/dialogs/items-dialog/items-dialog.
 
 
 @Component({
-  selector: 'app-add-items',
-  templateUrl: './add-items.component.html',
-  styleUrls: ['./add-items.component.css']
+  selector: 'app-items',
+  templateUrl: './items.component.html',
+  styleUrls: ['./items.component.css']
 })
-export class AddItemsComponent implements OnInit {
+export class ItemsComponent implements OnInit {
   items: Items[];
   itemCodeValue: number;
   itemNameValue: string;
@@ -22,7 +22,7 @@ export class AddItemsComponent implements OnInit {
   displayedColumns: Object = { 'itemCode': 'Item Code', 'itemName': 'Item Name', 'itemPrice': 'Item Price' };
   dataSource: any;
   constructor(
-    private addItemService: AddItemsService,
+    private itemService: ItemsService,
     private snackBar: MatSnackBar,
     private commonText: commonText,
     private dialog: MatDialog
@@ -35,7 +35,7 @@ export class AddItemsComponent implements OnInit {
     });
   }
   getItemsData(): Observable<Items[]> {
-    return this.addItemService.getItemData();
+    return this.itemService.getItemData();
   }
 
   saveItem() {
@@ -45,7 +45,7 @@ export class AddItemsComponent implements OnInit {
       data['itemCode'] = this.itemCodeValue;
       data['itemName'] = this.itemNameValue;
       data['itemPrice'] = this.itemPriceValue;
-      this.addItemService.saveData(data).subscribe(result => {
+      this.itemService.saveData(data).subscribe(result => {
         this.dataSource = new MatTableDataSource<Items>(result);
         this.recordCount = result.length;
         this.resetData();

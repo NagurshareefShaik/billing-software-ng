@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomePgeComponent } from './container/home-pge/home-pge.component';
+import { HomePageComponent } from './container/home-page/home-page.component';
 import { BillingPortalComponent } from './container/billing-portal/billing-portal.component';
 import { BillingDataComponent } from './container/billing-data/billing-data.component';
 import { BillingDayInfoComponent } from './container/billing-day-info/billing-day-info.component';
-import { AddItemsComponent } from './container/add-items/add-items.component';
+import { ItemsComponent } from './container/items/items.component';
 
 
 const routes: Routes = [
-  {path:'',component:HomePgeComponent},
-  {path:'home-page',component:HomePgeComponent},
+  {path:'',component:HomePageComponent},
+  {path:'home-page',component:HomePageComponent},
   {path:'billing-portal',component:BillingPortalComponent},
   {path:'billing-data',component:BillingDataComponent},
-  {path:'add-items',component:AddItemsComponent},
+  {path:'add-items',component:ItemsComponent},
   {path:'day-billing-info',component:BillingDayInfoComponent}
 ];
 
