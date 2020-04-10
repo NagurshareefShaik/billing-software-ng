@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BillingPortalService } from './service/billing-portal.service';
-import { MatSnackBar, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { BillingItems } from 'src/app/model/billingItem';
 import { BillingData } from 'src/app/model/billingData';

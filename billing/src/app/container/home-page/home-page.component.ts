@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { commonText } from 'src/app/text/common.text';
 
 @Component({
   selector: 'app-home-page',

@@ -39,8 +39,10 @@
 </div>
 <div class="amount-div">
   <mat-form-field appearance="fill">
+    <!-- <app-ng-label [label]="'Amount'"></app-ng-label> -->
     <mat-label>Amount</mat-label>
     <input matInput type="number" [(ngModel)]="totalAmount" class="example-right-align" disabled>
+    <!-- <app-ng-span [value]="'₹​&nbsp;'" [type]="matPrefix"></app-ng-span> -->
     <span matPrefix>₹​&nbsp;</span>
     <span matSuffix>.00</span>
   </mat-form-field>

@@ -23,6 +23,7 @@ import { NgLabelComponent } from './components/ng-label/ng-label.component';
 import { NgInputComponent } from './components/ng-input/ng-input.component';
 import { NgTableComponent } from './components/ng-table/ng-table.component';
 import { NgDivComponent } from './components/ng-div/ng-div.component';
+import { NgSpanComponent } from './components/ng-span/ng-span.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NgDivComponent } from './components/ng-div/ng-div.component';
     NgLabelComponent,
     NgInputComponent,
     NgTableComponent,
-    NgDivComponent
+    NgDivComponent,
+    NgSpanComponent
   ],
   entryComponents: [ItemsDialogComponent, BillingItemDialogComponent],
   imports: [
